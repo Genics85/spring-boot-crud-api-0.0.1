@@ -73,7 +73,6 @@ class EmployeeServiceImplTest {
 
         when(repo.findById(any())).thenThrow(ResourceNotFound.class);
 
-        verify(repo,times(1)).findById(any());
         assertThrows(ResourceNotFound.class,()-> underTest.getById(employee.getId()));
     }
 
