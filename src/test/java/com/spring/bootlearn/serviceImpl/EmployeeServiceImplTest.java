@@ -32,10 +32,7 @@ class EmployeeServiceImplTest {
 
     @Test
     void saveEmployee() {
-        Employee employee = new Employee();
-        employee.setFirstName("genics");
-        employee.setEmail("something@gmail.com");
-        employee.setLastName("last name");
+        Employee employee = factory.manufacturePojoWithFullData(Employee.class);
         when(repo.save(any())).thenReturn(employee);
 
         Employee expected=underTest.saveEmployee(employee);
@@ -59,7 +56,6 @@ class EmployeeServiceImplTest {
     @Test
     void getById() {
         Employee employee = factory.manufacturePojo(Employee.class);
-
         when(repo.findById(any())).thenReturn(Optional.of(employee));
 
         Employee expected= underTest.getById(employee.getId());
