@@ -1,12 +1,9 @@
 name: Hello world workflow
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  issues:
+    types: [opened]
+
 jobs:
   hello:
     runs-on: ubuntu-latest
@@ -15,11 +12,21 @@ jobs:
       - name: Hello world
         run: echo "hello world from workflow"
         shell: bash
-  bye:
+  comment:
     runs-on: ubuntu-latest
     steps:
-      - name: Good by world
-        run: echo "good bye world from workflow"
-        shell: bash
+      - name: Create comment
+        uses: peter-evans/create-or-update-comment@v3
+        with:
+          issue-number: ${{github.event.issue.number}}
+          body: |
+            Fear not for your issues has been seen and will be sorted out soon
+            - With GitHub **Markdown** :sparkles:
+            - Created by [create-or-update-comment][1]
+
+            [1]: https://github.com/peter-evans/create-or-update-comment
+          reactions: '+1'
+    
+    
   
   
